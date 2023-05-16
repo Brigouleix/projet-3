@@ -33,12 +33,12 @@ function loginLogout(){
     edit.appendChild(editionModeTopSectionIcon);
     edit.appendChild(photoIntroIcon);
     
-    const photoIntro = document.getElementById("introduction");
+    const photoIntro = document.getElementById("profilPhoto");
     const photoIntroModify = photoIntro.querySelector("figure");
 
 
-    photoIntroModify.appendChild(edit);
-    debugger;
+    photoIntro.prepend(edit);
+    
     
     
     const titleIntro = document.querySelector("article");
@@ -80,16 +80,7 @@ function loginLogout(){
     const span = document.getElementsByClassName("close")[0];
 
 
-    const goBack = document.getElementsByClassName("goBack");
     
-    
-
-    goBack.onclick = function (event) {
-      if (event.target == goBack) {
-        myModal.style.display = "flex";
-        addPhotoModal.style.display = "none";
-      }
-    };
 
     btn.addEventListener("click",  function() {
         myModal.style.display = "flex";

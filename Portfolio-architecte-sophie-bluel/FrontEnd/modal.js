@@ -12,10 +12,12 @@ const btn = document.getElementById("openModal");
 const span = document.getElementsByClassName("close")[0];
 
 
+    
 
-btn.addEventListener("click",  function() {
-    myModal.style.display = "flex";
-})
+
+
+
+
 
 span.addEventListener("click", function() {
     myModal.style.display = "none";
@@ -42,8 +44,8 @@ fetch('http://localhost:5678/api/works')
 
 
 async function refreshWorks(){
-    const answer = await fetch("http://localhost:5678/api/works")
-    figures = await answer.json();
+    const answer = fetch("http://localhost:5678/api/works")
+    figures = answer.json();
     const figuresJSON = JSON.stringify(figures);
     window.sessionStorage.setItem("figures", figuresJSON);
 };
@@ -54,10 +56,11 @@ function createFigure(figures) {
 
     for (let i=0;i<figures.length;i++) {
         const figure = figures[i];
+        
         const figureElement = document.createElement('figure');
         const imgElement = document.createElement('img');
         const figcaptionElement = document.createElement('figcaption');
-
+        
         const deleteWorkButton = document.createElement("a");
         const imgDeleteButton = document.createElement("img");
         imgDeleteButton.src = "assets/icons/trash-icon.png";
@@ -76,19 +79,28 @@ function createFigure(figures) {
 
 
 
-        deleteWorkButton.addEventListener("click", async function() {
+        imgDeleteButton.addEventListener("click", async function() {
             const token = localStorage.getItem('token');
-            const deleteWork = await fetch(`http://localhost:5678/api/works/${works[i].id}`, {
+            console.log(token);
+            fetch(`http://localhost:5678/api/works/${figures[i].id}`, {
                 method: "DELETE",
                 headers: {
-                    "Authorization": 'Bearer ' + token,
+                    "accept": "application/json",
+                    'Authorization': 'Bearer ' + token,
+
                 }
-            });
-            await refreshWorks();
-            document.getElementById('galleryModal').innerHTML = "";
-            createFigure(figures);
+            }) 
+            .then(response => {
+                if (response.ok) {
+                    
+                    document.getElementById('galleryModal').innerHTML = "";
+                    const index = figures.findIndex(figure => figure.id = figures[i].id);
+                    figures.splice(index,1);
+                    createFigure(figures);
+                
+                }
             
-            
+            });   
         
         });
     };
@@ -157,59 +169,88 @@ fetch('http://localhost:5678/api/categories')
 });
 
 
+
+const valider = document.querySelector("#submitPhotoButton");
+const title = document.querySelector("[name=imageTitle]").value;
+const category = document.querySelector("[name=imageCategory]").value;
+
+
+function validerButton(image) {
+    if (!!image && !!title.value && !!category.value){
+        
+        valider.disabled = false;
+        valider.style.backgroundColor = "#85acc1";
+    }
+
+};
+
 export function addNewProjet() {
     let image;
-  
+    
+
+    
+    valider.disabled = true ;
+    valider.style.backgroundColor = "grey";
+
     document.getElementById("imageFile").addEventListener("change", (event) => {
       let target = event.target;
       image = target.files[0];
       console.log(image);
+        
+      
+
     });
-  
+
+    
+
     const formNewProjet = document.getElementById("formAddPhoto");
     formNewProjet.addEventListener("submit", function (event) {
-      event.preventDefault();
+        event.preventDefault();
   
-      const title = document.querySelector("[name=imageTitle]").value;
-      const category = document.querySelector("[name=imageCategory]").value;
-  
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("image", image);
-      formData.append("category", category);
+
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("image", image);
+        formData.append("category", category);
         console.log(title);
         console.log(image);
         console.log(category);
         
         
 
-      const token = localStorage.getItem('token');
-      return fetch("http://localhost:5678/api/works", {
+        const token = localStorage.getItem('token');
+        return fetch("http://localhost:5678/api/works", {
         method: "POST",
         headers: {
-          "accept": "application/json",
-          'Authorization': 'Bearer ' + token,
+            "accept": "application/json",
+            'Authorization': 'Bearer ' + token,
         },
         body: formData
-        })
+        });
+
+        
     });
+
 
     const input = document.getElementById('imageFile');
 
 
     input.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    const label = document.querySelector("label");
-    const reader = new FileReader();
-    reader.onload = (event) => {
-        const img = document.createElement('img');
-        img.src = event.target.result;
-        img.width = 100;
-        img.height = 100;
-        label.innerHTML = '';
-        label.appendChild(img);
-    };
-    reader.readAsDataURL(file);
+        const file = event.target.files[0];
+        const label = document.querySelector("label");
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = document.createElement('img');
+            img.src = event.target.result;
+            img.width = 100;
+            img.height = 100;
+            label.innerHTML = '';
+            label.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+        
     });
+
+    
 }
   

@@ -31,9 +31,7 @@
 
 		<section id="introduction">
 			<figure>
-				<img src="./assets/images/sophie-bluel.png" alt="">
-				
-			
+				<img src="./assets/images/sophie-bluel.png" alt="" id="profilPhoto">			
 			</figure>
 			<article>
 				
@@ -46,10 +44,7 @@
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
 			<div class="edition"></div>
-			<div class="category">
-				<!-- Bouton pour ouvrir la modale -->
-				<button id="openModal">Modifier</button>
-			</div>
+			<div class="category"></div>
 			<!-- Modale -->
 			<div class="modal" id="myModal">
 				<div class="modal-content">
@@ -71,7 +66,7 @@
 			<div id="addPhotoModal" class="modal">
 				<div class="modal-content">
 				  <div class="modal-header">
-					<img src="assets/icons/back-arrow-icon.png" alt="page précédente" class="goBack">
+					<img src="assets/icons/back-arrow-icon.png" alt="" id="goBack">
 					<h2>Ajout photo</h2>
 					<span class="close">&times;</span>
 				  </div>
@@ -79,7 +74,8 @@
 					<form id="formAddPhoto">
 					  <label for="imageFile" id="preview">
 						<img src="assets/icons/image-regular.png" alt="">
-						<button>+Ajouter photo</button>
+						<button id="addButton">+Ajouter photo</button>
+						<p>jpg, png : 4Mo max</p>
 					  </label>
 					  <input type="file" id="imageFile" name="Ajout"  accept="image/*">
 					  
@@ -92,7 +88,7 @@
 						<option value=""></option>
 					  </select>
 					  <br>
-					  <button class="modal-footer" type="submit" id="submitPhotoButton">Valider</button>
+					  <button class="modal-footer" type="button" id="submitPhotoButton">Valider</button>
 					</form>
 				  </div>				  
 				</div>
