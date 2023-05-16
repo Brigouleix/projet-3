@@ -176,81 +176,87 @@ const category = document.querySelector("[name=imageCategory]").value;
 
 
 function validerButton(image) {
-    if (!!image && !!title.value && !!category.value){
+    if (image.files[0] && title.value && category.value){
         
         valider.disabled = false;
         valider.style.backgroundColor = "#85acc1";
+    }else{
+        valider.disabled = true ;
+        valider.style.backgroundColor = "grey";
     }
 
 };
 
 export function addNewProjet() {
     let image;
-    
-
-    
-    valider.disabled = true ;
-    valider.style.backgroundColor = "grey";
-
-    document.getElementById("imageFile").addEventListener("change", (event) => {
-      let target = event.target;
-      image = target.files[0];
-      console.log(image);
-        
-      
-
+    let title;
+    let category;
+  
+    const imageFileInput = document.getElementById("imageFile");
+    const imageTitleInput = document.getElementById("imageTitle");
+    const imageCategoryInput = document.getElementById("imageCategory");
+    const submitButton = document.getElementById("submitPhotoButton");
+  
+    imageFileInput.addEventListener("change", (event) => {
+      image = event.target.files[0];
+      displayImagePreview();
     });
-
-    
-
+  
+    imageTitleInput.addEventListener("input", (event) => {
+      title = event.target.value;
+      enableSubmitButton();
+    });
+  
+    imageCategoryInput.addEventListener("input", (event) => {
+      category = event.target.value;
+      enableSubmitButton();
+    });
+  
+    function enableSubmitButton() {
+      if (image && title && category) {
+        submitButton.disabled = false;
+        submitButton.classList.remove("disabled");
+      } else {
+        submitButton.disabled = true;
+        submitButton.classList.add("disabled");
+      }
+    }
+  
+    function displayImagePreview() {
+      const label = document.getElementById("preview");
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = document.createElement("img");
+        img.src = event.target.result;
+        img.width = 100;
+        img.height = 100;
+        label.innerHTML = "";
+        label.appendChild(img);
+      };
+      reader.readAsDataURL(image);
+    }
+  
     const formNewProjet = document.getElementById("formAddPhoto");
     formNewProjet.addEventListener("submit", function (event) {
-        event.preventDefault();
+      event.preventDefault();
   
-
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("image", image);
-        formData.append("category", category);
-        console.log(title);
-        console.log(image);
-        console.log(category);
-        
-        
-
-        const token = localStorage.getItem('token');
-        return fetch("http://localhost:5678/api/works", {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("image", image);
+      formData.append("category", category);
+  
+      const token = localStorage.getItem("token");
+      return fetch("http://localhost:5678/api/works", {
         method: "POST",
         headers: {
-            "accept": "application/json",
-            'Authorization': 'Bearer ' + token,
+          accept: "application/json",
+          Authorization: "Bearer " + token,
         },
-        body: formData
-        });
-
-        
+        body: formData,
+      });
     });
-
-
-    const input = document.getElementById('imageFile');
-
-
-    input.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        const label = document.querySelector("label");
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const img = document.createElement('img');
-            img.src = event.target.result;
-            img.width = 100;
-            img.height = 100;
-            label.innerHTML = '';
-            label.appendChild(img);
-        };
-        reader.readAsDataURL(file);
-        
-    });
-
-    
-}
+  
+    enableSubmitButton();
+  }
+  
   
