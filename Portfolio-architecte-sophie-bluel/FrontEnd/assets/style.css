@@ -276,6 +276,7 @@ footer {
 }
 .modal-body {
 	padding: 20px;
+	height: 65%;
 }
 
 .modal-body > * {
@@ -291,7 +292,9 @@ footer {
 	display: flex;
 	flex-direction: column;
 }
-
+#addPhotoModal .modal-body {
+	height: 80%;
+}
 #trashIcon {
 	width: 16px;
 	height: 16px;
@@ -306,16 +309,16 @@ select {
     font-size: 1.2em;
     border: none;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-top: 10px;
 }
 .modal-body input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-top: 10px;
 }
-.modal-body label {
-	margin: 2em 0 1em 0;
-}
+
 .modal-body textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -326,7 +329,6 @@ select {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: 20px;
 	border-top: 1px solid #888;
 }
 
@@ -342,6 +344,11 @@ button {
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
+}
+
+a {
+	cursor: pointer;
 }
 
 #galleryModal img {
@@ -362,29 +369,34 @@ button {
 }
 #preview {
 	background-color: #CBD6DC;
-    height: 150px;
+    height: 170px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+	color: #85acc1;
+	padding-bottom: 15px;
 }
 #preview button {
 	color: #85acc1;
     background-color: inherit;
     border: #85acc1 solid 1px;
     box-shadow: none;
+	margin: 20px;
 }
 #preview img {
 	color: #85acc1;
     width: 75px;
-    margin: auto;
     margin-top: 15px;
 }
 #deleteGalleryLink {
 	color: #f44336;
 	text-decoration: none;
 }
-
+#goBack {
+	height: 20px;
+    margin-top: 3px;
+}
 #deleteGalleryLink:hover {
 	text-decoration: underline;
 }
