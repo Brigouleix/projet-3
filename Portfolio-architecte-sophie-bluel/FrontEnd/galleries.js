@@ -132,7 +132,10 @@ function createFigure(figures) {
         figureElement.appendChild(figcaptionElement);
         gallery.appendChild(figureElement);
     }
+  
 }
+
+
 
 
 fetch('http://localhost:5678/api/categories')
