@@ -29,15 +29,17 @@ goBackModal.addEventListener("click", () => {
 
 span.addEventListener("click", function() {
     myModal.style.display = "none";
+    location.reload();
 })
 
 
 window.onclick = function(event) {
-    if (event.target == myModal) {
-        myModal.style.display = "none";
+    if (event.target === myModal) {
+      myModal.style.display = "none";
+      location.reload();
     }
 }
-
+  
 let figures = [];
 
 const gallery = document.getElementById("gallery");
@@ -106,8 +108,7 @@ function createFigure(figures) {
                 if (response.ok) {
                     
                     document.getElementById('galleryModal').innerHTML = "";
-                    
-                    
+
                     figures.splice(i,1);
                     createFigure(figures);
                     
@@ -144,15 +145,16 @@ addPhotoButton.addEventListener("click", function() {
     addPhotoModal.style.display = "block";
     myModal.style.display = "none";
     
-    
+    const span = document.getElementsByClassName("close")[1];
     
     span.addEventListener("click", function() {
         addPhotoModal.style.display = "none";
+        
     })
     
-
+    
     window.onclick = function(event) {
-    if (event.target == addPhotoModal) {
+    if (event.target === addPhotoModal) {
         addPhotoModal.style.display = "none";
     }
     }
@@ -179,7 +181,6 @@ fetch('http://localhost:5678/api/categories')
 
 
 
-const valider = document.querySelector("#submitPhotoButton");
 const title = document.querySelector("[name=imageTitle]").value;
 const category = document.querySelector("[name=imageCategory]").value;
 
@@ -187,12 +188,12 @@ const category = document.querySelector("[name=imageCategory]").value;
 
 
 export function addNewProjet() {
-    let image;
+    
     const imageFileInput = document.getElementById('imageFile');
     const imageTitleInput = document.getElementById('imageTitle');
     const imageCategoryInput = document.getElementById('imageCategory');
     const submitButton = document.getElementById('submitPhotoButton');
-  
+
     imageFileInput.addEventListener('change', (event) => {
       let target = event.target;
       image = target.files[0];
@@ -209,9 +210,9 @@ export function addNewProjet() {
     imageTitleInput.addEventListener('input', updateSubmitButtonState);
     imageCategoryInput.addEventListener('input', updateSubmitButtonState);
   
-    const formNewProjet = document.getElementById('submitPhotoButton');
+    
   
-    formNewProjet.addEventListener('click', function (event) {
+    submitButton.addEventListener('click', function (event) {
       
       const title = imageTitleInput.value;
       const category = imageCategoryInput.value;
@@ -234,12 +235,14 @@ export function addNewProjet() {
         body: formData,
       })
         .then((response) => {
+            if (response.ok) {
+          
+                location.reload();
+            }
            
         });
         
         addPhotoModal.style.display = "none";
-        
-
 
     });
     
@@ -265,6 +268,7 @@ export function addNewProjet() {
   
     // Appelez la fonction pour initialiser l'état du bouton au chargement de la page
     updateSubmitButtonState();
+    
 }
   
   

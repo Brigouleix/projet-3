@@ -377,12 +377,19 @@ a {
 	color: #85acc1;
 	padding-bottom: 15px;
 }
-#preview button {
-	color: #85acc1;
+#preview #addButton {
+    color: #85acc1;
     background-color: inherit;
     border: #85acc1 solid 1px;
     box-shadow: none;
-	margin: 20px;
+    border-radius: 60px;
+    cursor: pointer;
+    font-family: 'Syne';
+    font-size: 1.2em;
+    margin: 10px;
+    width: 180px;
+    text-align: center;
+    padding: 10px;
 }
 #preview img {
 	color: #85acc1;
