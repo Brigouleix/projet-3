@@ -213,10 +213,8 @@ footer {
 }
 
 #openModal {
-	justify-content: center;
-    margin-bottom: 1em;
     margin-left: 20px;
-
+	padding-top: 8px;
 }
 .modal-content {
 	background-color: #fefefe;
