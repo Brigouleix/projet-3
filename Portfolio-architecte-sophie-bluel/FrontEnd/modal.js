@@ -188,7 +188,7 @@ const category = document.querySelector("[name=imageCategory]").value;
 
 
 export function addNewProjet() {
-    
+    let image;
     const imageFileInput = document.getElementById('imageFile');
     const imageTitleInput = document.getElementById('imageTitle');
     const imageCategoryInput = document.getElementById('imageCategory');
